@@ -1,0 +1,463 @@
+<html lang="zh-CN">
+ <head>
+  <script charset="UTF-8" id="LA_COLLECT" src="js/js-sdk-pro.min.js"></script> 
+  <script>LA.init({id:"3OqDIMjQ8b4MUNrC",ck:"3OqDIMjQ8b4MUNrC"})</script>    
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+  <title>黑料不打烊</title> 
+  <link rel="stylesheet" href="css/style.css"> 
+  <link rel="stylesheet" href="css/layui.css"> 
+  <style>
+        /* 全局基础样式 */
+        body { background: #f2f2f2; font-family: -apple-system, Helvetica, sans-serif; padding-bottom: 20px; }
+        .center-text { text-align: center; }
+        
+        /* === 顶部轮播图样式 === */
+        .slideshow-container { position: relative; overflow: hidden; width: 100%; border-radius: 8px;} 
+        .slideshow-slide { display: none; width: 100%; animation: fade 1.5s; }
+        .slideshow-slide img { width: 100%; display: block; border-radius: 8px;}
+        
+        /* 通用轮播箭头 */
+        .prev-btn, .next-btn {
+            cursor: pointer; position: absolute; top: 50%; width: 30px; height: 30px;
+            line-height: 30px; margin-top: -15px; color: white; font-weight: bold;
+            font-size: 18px; transition: 0.3s ease; user-select: none;
+            background-color: rgba(0,0,0,0.3); z-index: 50; text-align: center;
+            border-radius: 50%; text-decoration: none;
+        }
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+        .prev-btn:hover, .next-btn:hover { background-color: rgba(0,0,0,0.8); }
+
+        /* 轮播圆点 */
+        .dots-container { text-align: center; margin-top: -25px; position: relative; z-index: 50; padding-bottom: 10px;}
+        .dot { cursor: pointer; height: 6px; width: 6px; margin: 0 3px; background-color: rgba(255,255,255,0.5); border-radius: 50%; display: inline-block; }
+        .dot.active { background-color: #fff; transform: scale(1.3); }
+
+        @keyframes fade { from {opacity: .6} to {opacity: 1} }
+
+        /* === 修复点1：图片统一横幅样式 === */
+        .banner-style-img {
+            width: 100%; 
+            height: auto;
+            margin: 10px 0;
+            border-radius: 8px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+            display: block; 
+            border: 1px solid #eee;
+        }
+
+        /* === 修复点2：底部奖励轮播图专用样式 === */
+        .reward-wrapper { position: relative; margin: 15px 0; border:1px solid #eee; border-radius:8px; overflow:hidden;}
+        .reward-slide { display: none; width: 100%; animation: fade 1.5s; }
+        .reward-slide img { width: 100%; display: block; }
+
+        /* === 修复点3：全新的招代发按钮样式 === */
+        .recruit-container {
+            margin: 25px 0 15px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1000; /* 极高层级，防止被遮挡 */
+        }
+        .recruit-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ff4757); /* 醒目的红色渐变 */
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+            cursor: pointer;
+            transition: transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .recruit-btn:active { transform: scale(0.95); }
+        .recruit-icon { font-size: 18px; }
+        
+        
+        
+        /* 悬浮按钮容器 */
+.mini-btn {
+    position: fixed;
+    right: 20px;       /* 距离右侧的距离 */
+    bottom: 100px;     /* 距离底部的距离，根据需要调整 */
+    z-index: 9999;     /* 确保在最顶层 */
+    background: #ffffff; /* 纯白背景 */
+    border-radius: 50px; /* 胶囊圆角 */
+    box-shadow: 0 4px 15px rgba(18, 150, 219, 0.25); /* 淡淡的蓝色阴影，呼应图标颜色 */
+    cursor: pointer;
+    transition: all 0.3s ease; /* 平滑过渡动画 */
+    overflow: hidden;
+}
+
+/* 按钮内部布局 */
+.mini-btn-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px; /* 内部留白，让按钮更饱满 */
+    gap: 8px; /* 图标和文字的间距 */
+}
+
+/* 图标样式 */
+.mini-btn .kf-icon {
+    width: 26px;  /* 稍微放大图标尺寸 */
+    height: 26px;
+    display: block;
+    /* 这里的 fill 已经由 SVG 内部定义为蓝色 (#1296db) */
+}
+
+/* 文字样式 */
+.mini-btn .ai-text {
+    font-size: 15px;
+    font-weight: 600; /* 字体加粗 */
+    color: #1296db;   /* 字体颜色与图标一致 */
+    letter-spacing: 0.5px;
+}
+
+/* 鼠标悬停交互效果 */
+.mini-btn:hover {
+    transform: translateY(-3px); /* 向上浮动 */
+    box-shadow: 0 8px 25px rgba(18, 150, 219, 0.4); /* 阴影加深 */
+}
+
+/* 点击时的效果 */
+.mini-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(18, 150, 219, 0.2);
+}
+        
+        
+        
+
+        /* 聊天窗口样式 */
+        .msg-row { display: flex; margin-bottom: 10px; width: 100%; }
+        .msg-row.user { justify-content: flex-end; }
+        .msg-bubble { max-width: 80%; padding: 8px 12px; border-radius: 8px; font-size: 14px; position: relative; word-wrap: break-word;}
+        .msg-row.sys .msg-bubble { background: #fff; color: #333; border-top-left-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .msg-row.user .msg-bubble { background: #95ec69; color: #000; border-top-right-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .msg-avatar { width: 36px; height: 36px; border-radius: 50%; margin-right: 8px; background: #eee; }
+    </style> 
+ </head> 
+ <body> 
+  <div id="img-content" class="rich_media_wrp"> 
+   <h1 class="rich_media_title" id="activity-name"><span>免费领取黑料资源教程</span></h1> 
+   <div class="rich_media_meta_list"> 
+    <div class="developer-note"> 
+     <div class="developer-note-header"> 
+      <span class="developer-title">简单几步即可领取黑料资源</span> 
+     </div> 
+     <div class="developer-content"> 
+      <strong>本站已经稳定运行10年，拥有全网最多最全最热黑料资源........ 我们整理了近期较火视频:小小绘，小睡神，喷龙息御梦子，女王妹妹，八酱事件，眼镜杀原版视频，响水47秒视频，太子妃，羽毛球变装隐藏版，将军老师，跪地变装隐藏版，困熊，童锣烧，马桶割W女生，霜降原视频，台球女孩原视频，困困，韩婧格原视频全部免费！</strong> 
+     </div> 
+     <div class="developer-content"></div> 
+     <br> 
+     <font color="red">黑料整合不易，免费分享给大家，所以请大家帮忙宣传一下，设置了一个非常简单的小任务（30秒就可以搞定）<p><span style="color: rgb(132, 63, 161);"><strong><span class="developer-title">你可以免费得到近期较火视频:小小绘，小睡神，喷龙息御梦子，信阳园长倒立视频，高街帝霸凌事件，走心被打事件，深海蜜柚，霜降原视频，，康师傅矿泉水事件，副官挨打，幕幕和小宁，马桶割W女生，霜降原视频，台球女孩原视频，抽屉变装隐藏版，韩婧格原视频等几十个 免费观看</span></strong></span></p><span class="color_font" style="color: rgb(237, 0, 253);"><strong></strong></span></font> 
+    </div> 
+   </div> 
+   <section class="center-text"> 
+    <div class="slideshow-container"> 
+     <div class="slideshow-slide" style="display: block"> 
+      <img src="images/1769593562_142.jpg"> 
+     </div> 
+     <div class="slideshow-slide" style="display: none"> 
+      <img src="images/1769608983_761.jpg"> 
+     </div> 
+     <div class="slideshow-slide" style="display: none"> 
+      <img src="images/1769611575_923.jpg"> 
+     </div> 
+     <div class="slideshow-slide" style="display: none"> 
+      <img src="images/1769646728_197.jpg"> 
+     </div> 
+     <div class="slideshow-slide" style="display: none"> 
+      <img src="images/1769647239_337.jpg"> 
+     </div> 
+     <a class="prev-btn" onclick="plusSlides(-1)">❮</a> 
+     <a class="next-btn" onclick="plusSlides(1)">❯</a> 
+     <div class="dots-container"> 
+      <span class="dot active" onclick="currentSlide(1)"></span> 
+      <span class="dot " onclick="currentSlide(2)"></span> 
+      <span class="dot " onclick="currentSlide(3)"></span> 
+      <span class="dot " onclick="currentSlide(4)"></span> 
+      <span class="dot " onclick="currentSlide(5)"></span> 
+     </div> 
+    </div> 
+   </section> 
+   <div class="rich_media_content"> 
+    <section> 
+     <div class="steps-container"> 
+      <div class="step-card"> 
+       <div class="step-header">
+        <div class="step-number">
+         1
+        </div>
+        <h3>第一步</h3>
+       </div> 
+       <div class="search-keywords"> 
+        <p class="step-instruction" style="text-align:center;"><strong>长按下方图片保存到相册 或点开图片截图 ↓↓</strong></p> 
+        <div class="image-container" style="text-align: center;"> 
+         <img src="images/1769684491_856.jpg" class="banner-style-img"> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="step-card"> 
+       <div class="step-header">
+        <div class="step-number">
+         2
+        </div>
+        <h3>第二步</h3>
+       </div> 
+       <div class="search-keywords"> 
+        <p><b><strong>[抖音或快手或哔哩哔哩或小红书]搜索下面其中一个关键词【点击复制】👇</strong></b></p> 
+        <div class="keyword-buttons"> 
+         <span class="keyword-btn STYLE17" style="color: red; border-color: red;" onclick="copyKeyword(this.innerText)"> <strong>小小绘</strong> </span> 
+         <span class="keyword-btn STYLE17" style="color: red; border-color: red;" onclick="copyKeyword(this.innerText)"> <strong>小睡神</strong> </span> 
+         <span class="keyword-btn STYLE17" style="color: red; border-color: red;" onclick="copyKeyword(this.innerText)"> <strong>喷龙息御梦子</strong> </span> 
+         <span class="keyword-btn STYLE17" onclick="copyKeyword(this.innerText)"> <strong>少萝和同城穿搭小子</strong> </span> 
+         <span class="keyword-btn STYLE17" onclick="copyKeyword(this.innerText)"> <strong>信阳园长倒立视频</strong> </span> 
+         <span class="keyword-btn STYLE17" onclick="copyKeyword(this.innerText)"> <strong>高街帝霸凌事件</strong> </span> 
+         <span class="keyword-btn STYLE17" onclick="copyKeyword(this.innerText)"> <strong>走心被打事件</strong> </span> 
+         <span class="keyword-btn STYLE17" onclick="copyKeyword(this.innerText)"> <strong>深海蜜柚</strong> </span> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </section>
+   </div> 
+   <div class="step-card"> 
+    <div class="step-header">
+     <div class="step-number">
+      3
+     </div>
+     <h3>第三步</h3>
+    </div> 
+    <p><strong>打开<span class="warning-text"><span style="color: rgb(224, 62, 45);">抖音或小红书或哔哩哔哩或快手</span></span>搜索关键词，搜索后往下滑，选3个评论少或者没有评论的作品</strong> <b><br>评论上面刚保存的图片，每个作品评论一张</b> <b><br>最后给自己点个赞，并截图</b></p> 
+    <br> 
+    <strong class="highlight STYLE1 STYLE14">👇如下图所示👇</strong> 
+    <img src="images/1769684513_129.jpg" class="banner-style-img"> 
+   </div> 
+   <div class="step-card"> 
+    <div class="final-step"> 
+     <div class="final-step-header"> 
+      <span>最后一步</span> 
+      <div id="copy-popup">
+       文案已复制剪贴板
+      </div> 
+     </div> 
+     <p> <b>将你刚评论的截图发给右下侧的<strong class="highlight"><span> Ai机器人
+         <svg t="1740125275113" style="vertical-align: -3px;" class="icon" viewbox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="18930" width="23" height="23">
+          <path d="M830.58 810.45H188A149.56 149.56 0 0 0 337.52 960h354.41A144.1 144.1 0 0 0 836 815.9a5.45 5.45 0 0 0-5.42-5.45zM375.54 503.18a24.93 24.93 0 0 0-24.92 24.93V578a24.92 24.92 0 0 0 24.92 24.92A24.93 24.93 0 0 0 400.47 578v-49.89a24.93 24.93 0 0 0-24.93-24.93zM648.46 503.18a24.93 24.93 0 0 0-24.93 24.93V578a24.93 24.93 0 0 0 24.93 24.92A24.92 24.92 0 0 0 673.38 578v-49.89a24.93 24.93 0 0 0-24.92-24.93z" fill="#1296db" p-id="18931"></path>
+          <path d="M859.71 203.53a74.84 74.84 0 0 0-136.52-22.12 75 75 0 0 0 5.31 86.25L690 329.93a324.13 324.13 0 0 0-356.08 0l-38.42-62.27a74.76 74.76 0 1 0-42.5 26.28l41.26 66.8A323.2 323.2 0 0 0 188 600.68v177h648v-177a323.2 323.2 0 0 0-106.22-239.94l41.22-66.8a74.41 74.41 0 0 0 15.69 1.68 75.49 75.49 0 0 0 17.35-2 74.85 74.85 0 0 0 55.63-90.06zM216 233.8a24.86 24.86 0 1 1 34.2 8.08 24.88 24.88 0 0 1-34.2-8.08zM764.52 494A272.35 272.35 0 0 1 786 600.68v127H238v-127A274.12 274.12 0 0 1 764.52 494zM808 233.8a24.84 24.84 0 1 1-8.08-34.2 24.88 24.88 0 0 1 8.08 34.2z" fill="#1296db" p-id="18932"></path>
+          <path d="M368.7 140.43c9.55 0 23.19-14.87 23.19-14.87a191.15 191.15 0 0 1 240.22 0s13.64 14.87 23.19 14.87 5.32-14.87 5.32-14.87a210.18 210.18 0 0 0-297.24 0s-4.23 14.87 5.32 14.87z" fill="#1296db" p-id="18933"></path>
+          <path d="M617.09 178.64c9.55 0 3-12.55 3-12.55a152.84 152.84 0 0 0-216.16 0s-6.56 12.55 3 12.55 26.28-12.55 26.28-12.55a133.86 133.86 0 0 1 157.62 0s16.7 12.55 26.26 12.55z" fill="#1296db" p-id="18934"></path>
+          <path d="M444.45 206.62s-10.24 10.23 0 10.23 31.76-10.23 31.76-10.23a76.64 76.64 0 0 1 71.58 0s21.53 10.23 31.76 10.23 0-10.23 0-10.23a95.53 95.53 0 0 0-135.1 0z" fill="#1296db" p-id="18935"></path>
+         </svg><span style="vertical-align: middle;"></span> </span> </strong><br><br> Ai机器人会在（10）秒内审核完，然后会在聊天框自动弹出所有资源的跳转网盘链接<br><br><strong class="highlight">注意：不规范截图和上传重复截图将重置进度！</strong><br><br>已完成示例：👇👇👇</b> </p> 
+    </div> 
+    <div class="reward-wrapper"> 
+     <div class="reward-slide" style="display:block;"> 
+      <img src="images/c1.jpg"> 
+     </div> 
+     <a class="prev-btn" onclick="plusRewardSlides(-1)">❮</a> 
+     <a class="next-btn" onclick="plusRewardSlides(1)">❯</a> 
+    </div> 
+    <div class="recruit-container"> 
+     <button class="recruit-btn" onclick="showRecruitImage()"> <i class="layui-icon layui-icon-speaker recruit-icon"></i> <span>招募代发</span> </button> 
+    </div> 
+   </div> 
+  </div>    
+  <div class="mini-btn" onclick="show_floatWindow();"> 
+   <div class="mini-btn-content"> 
+    <svg class="kf-icon" viewbox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="26" height="26"> 
+     <path d="M830.58 810.45H188A149.56 149.56 0 0 0 337.52 960h354.41A144.1 144.1 0 0 0 836 815.9a5.45 5.45 0 0 0-5.42-5.45zM375.54 503.18a24.93 24.93 0 0 0-24.92 24.93V578a24.92 24.92 0 0 0 24.92 24.92A24.93 24.93 0 0 0 400.47 578v-49.89a24.93 24.93 0 0 0-24.93-24.93zM648.46 503.18a24.93 24.93 0 0 0-24.93 24.93V578a24.93 24.93 0 0 0 24.93 24.92A24.92 24.92 0 0 0 673.38 578v-49.89a24.93 24.93 0 0 0-24.92-24.93z" fill="#1296db"></path> 
+     <path d="M859.71 203.53a74.84 74.84 0 0 0-136.52-22.12 75 75 0 0 0 5.31 86.25L690 329.93a324.13 324.13 0 0 0-356.08 0l-38.42-62.27a74.76 74.76 0 1 0-42.5 26.28l41.26 66.8A323.2 323.2 0 0 0 188 600.68v177h648v-177a323.2 323.2 0 0 0-106.22-239.94l41.22-66.8a74.41 74.41 0 0 0 15.69 1.68 75.49 75.49 0 0 0 17.35-2 74.85 74.85 0 0 0 55.63-90.06zM216 233.8a24.86 24.86 0 1 1 34.2 8.08 24.88 24.88 0 0 1-34.2-8.08zM764.52 494A272.35 272.35 0 0 1 786 600.68v127H238v-127A274.12 274.12 0 0 1 764.52 494zM808 233.8a24.84 24.84 0 1 1-8.08-34.2 24.88 24.88 0 0 1 8.08 34.2z" fill="#1296db"></path> 
+     <path d="M368.7 140.43c9.55 0 23.19-14.87 23.19-14.87a191.15 191.15 0 0 1 240.22 0s13.64 14.87 23.19 14.87 5.32-14.87 5.32-14.87a210.18 210.18 0 0 0-297.24 0s-4.23 14.87 5.32 14.87z" fill="#1296db"></path> 
+     <path d="M617.09 178.64c9.55 0 3-12.55 3-12.55a152.84 152.84 0 0 0-216.16 0s-6.56 12.55 3 12.55 26.28-12.55 26.28-12.55a133.86 133.86 0 0 1 157.62 0s16.7 12.55 26.26 12.55z" fill="#1296db"></path> 
+     <path d="M444.45 206.62s-10.24 10.23 0 10.23 31.76-10.23 31.76-10.23a76.64 76.64 0 0 1 71.58 0s21.53 10.23 31.76 10.23 0-10.23 0-10.23a95.53 95.53 0 0 0-135.1 0z" fill="#1296db"></path> 
+    </svg> 
+    <div class="ai-text">
+     Ai机器人
+    </div> 
+   </div> 
+  </div> 
+  <div id="iframe_company_mini_div" style="display: none; background: #fff; position: fixed; bottom: 20px; right: 10px; width: 350px; height: 500px; max-width: 90%; z-index: 9999; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); overflow: hidden; flex-direction: column;"> 
+   <div style="background: #1798fc; color: #fff; padding: 12px; display: flex; justify-content: space-between; align-items: center;"> 
+    <span>Ai机器人 (审核员在线)</span> 
+    <span onclick="hide_floatWindow()" style="cursor: pointer; font-size: 24px;">×</span> 
+   </div> 
+   <div id="chat_content" style="flex: 1; overflow-y: auto; padding: 15px; background: #f5f5f5; display: flex; flex-direction: column;"> 
+    <div class="msg-row sys"> 
+     <img src="images/头像.png" class="msg-avatar" onerror="this.src='//tva1.sinaimg.cn/large/0072Vf1pgy1foxkbf256zj31hc0u07a4.jpg'"> 
+     <div class="msg-bubble">
+      <b>请将评论的规范截图都发送给我<br> 审核通过后我会发送所有资源的跳转页链接~<br>注意:不规范截图和发送重复的截图将重置进度所以是一定不能投机取巧的哦!</b>
+     </div>
+     <b><b> </b></b>
+    </div>
+    <b><b> </b></b>
+   </div>
+   <b><b> 
+     <div style="padding: 10px; background: #fff; border-top: 1px solid #eee;"> 
+      <input type="file" id="kf_image_input" accept="image/*" style="display:none" onchange="handleImageSend(this)"> 
+      <div style="display: flex; gap: 10px;"> 
+       <button onclick="document.getElementById('kf_image_input').click()" style="flex: 1; padding: 10px; background: #1798fc; color: white; border: none; border-radius: 5px; cursor: pointer;"> 📷 发送截图 (<span id="img_counter">0</span>/3) </button> 
+      </div> 
+     </div> </b></b>
+  </div>
+  <b><b> <script src="js/layui.js"></script> <script>
+        const CONFIG = {
+            recruitImg: "",
+            replyText: "审核通过！这是全网最全黑料资源：",
+            resourceLink: "https://pan.quark.cn/s/50692c6814b2"
+        };
+
+        // ============================================
+        // 1. 顶部轮播图逻辑
+        // ============================================
+        let slideIndex = 1;
+        let slideTimer = null;
+
+        function plusSlides(n) {
+            clearInterval(slideTimer);
+            showSlides(slideIndex += n);
+            startAutoSlide();
+        }
+        function currentSlide(n) {
+            clearInterval(slideTimer);
+            showSlides(slideIndex = n);
+            startAutoSlide();
+        }
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slideshow-slide");
+            let dots = document.getElementsByClassName("dot");
+            if (!slides.length) return;
+            if (n > slides.length) slideIndex = 1;
+            if (n < 1) slideIndex = slides.length;
+            for (i = 0; i < slides.length; i++) slides[i].style.display = "none";
+            for (i = 0; i < dots.length; i++) dots[i].className = dots[i].className.replace(" active", "");
+            slides[slideIndex-1].style.display = "block";
+            if(dots.length) dots[slideIndex-1].className += " active";
+        }
+        function startAutoSlide() {
+            clearInterval(slideTimer);
+            slideTimer = setInterval(() => { slideIndex++; showSlides(slideIndex); }, 3000);
+        }
+
+        // ============================================
+        // 2. 底部奖励轮播图逻辑
+        // ============================================
+        let rewardIndex = 1;
+        let rewardTimer = null;
+
+        function plusRewardSlides(n) {
+            clearInterval(rewardTimer);
+            showRewardSlides(rewardIndex += n);
+            startRewardAutoSlide();
+        }
+        function showRewardSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("reward-slide");
+            if (!slides.length) return;
+            if (n > slides.length) rewardIndex = 1;
+            if (n < 1) rewardIndex = slides.length;
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[rewardIndex-1].style.display = "block";
+        }
+        function startRewardAutoSlide() {
+            clearInterval(rewardTimer);
+            rewardTimer = setInterval(() => { rewardIndex++; showRewardSlides(rewardIndex); }, 3000);
+        }
+
+        // ============================================
+        // 3. 招代发弹窗
+        // ============================================
+        window.showRecruitImage = function() {
+            if(typeof layui !== 'undefined' && layui.layer) {
+                layui.layer.open({
+                    type: 1, title: false, closeBtn: 1, shadeClose: true,
+                    area: ['300px','auto'], skin: 'layui-layer-nobg',
+                    content: '<div style="text-align:center;"><img src="' + CONFIG.recruitImg + '" style="width:100%; border-radius:8px; display:block;"></div>'
+                });
+            } else {
+                alert('组件加载中...');
+            }
+        };
+
+        // ============================================
+        // 4. 聊天机器人逻辑
+        // ============================================
+        let sentImageCount = 0; 
+        window.handleImageSend = function(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    appendUserImage(e.target.result);
+                    sentImageCount++;
+                    var btnText = document.getElementById('img_counter');
+                    if(btnText) btnText.innerText = sentImageCount;
+                    const chatBox = document.getElementById('chat_content');
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    checkAndReply();
+                };
+                reader.readAsDataURL(file);
+                input.value = ''; 
+            }
+        };
+
+        function appendUserImage(src) {
+            const chatBox = document.getElementById('chat_content');
+            const html = `<div class="msg-row user"><div class="msg-bubble" style="padding:5px;background:#95ec69;"><img src="${src}" style="max-width:100px;max-height:100px;border-radius:4px;display:block;"></div></div>`;
+            chatBox.insertAdjacentHTML('beforeend', html);
+        }
+
+        function checkAndReply() {
+            const chatBox = document.getElementById('chat_content');
+            if (sentImageCount < 3) {
+                setTimeout(() => { appendSysMsg(`已收到截图，还差 <strong style="color:red">${3-sentImageCount}</strong> 张。`); }, 800);
+            } else if (sentImageCount === 3) {
+                setTimeout(() => { appendSysMsg("✅ 截图收齐，正在审核..."); }, 800);
+                setTimeout(() => {
+                    const successHtml = `<div class="msg-row sys"><img src="img/头像.png" class="msg-avatar"><div class="msg-bubble">${CONFIG.replyText}<br><br><a href="${CONFIG.resourceLink}" target="_blank" style="color:#007bff;text-decoration:underline;font-weight:bold;font-size:16px;">👉 点击这里领取资源 👈</a></div></div>`;
+                    chatBox.insertAdjacentHTML('beforeend', successHtml);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 2500);
+            }
+        }
+
+        function appendSysMsg(text) {
+            const chatBox = document.getElementById('chat_content');
+            const html = `<div class="msg-row sys"><img src="img/头像.png" class="msg-avatar"><div class="msg-bubble">${text}</div></div>`;
+            chatBox.insertAdjacentHTML('beforeend', html);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // ============================================
+        // 5. 初始化
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            startAutoSlide();       
+            startRewardAutoSlide(); 
+        });
+
+        window.show_floatWindow = function() { 
+            document.getElementById('iframe_company_mini_div').style.display = 'flex'; 
+            document.getElementById('chat_content').scrollTop = 99999;
+        };
+        window.hide_floatWindow = function() { document.getElementById('iframe_company_mini_div').style.display = 'none'; };
+        
+        window.copyKeyword = function(text) {
+            var ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); 
+            document.execCommand("copy"); document.body.removeChild(ta);
+            var p = document.getElementById('copy-popup'); p.classList.add('show');
+            setTimeout(() => p.classList.remove('show'), 2000);
+        };
+        
+        layui.use(['layer'], function(){}); 
+    </script>  </b></b>
+ </body>
+</html>
